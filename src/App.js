@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
+import Calendar from "./Pages/Calendar";
+import Completed from "./Pages/Completed";
+import ToDo from "./Pages/ToDo";
+import {
+
+  useQuery,
+
+  useMutation,
+
+  useQueryClient,
+
+  QueryClient,
+
+  QueryClientProvider,
+
+} from 'react-query'
+
 
 function App() {
+  const queryClient = new QueryClient()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <QueryClientProvider client={queryClient}>
+
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<ToDo></ToDo>}></Route>
+          <Route path="/completed" element={<Completed></Completed>}></Route>
+          <Route path="/calendar" element={<Calendar></Calendar>}></Route>
+        </Routes>
+        <Footer />
+
+      </QueryClientProvider>
+    
+    </>
   );
 }
 
